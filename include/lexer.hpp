@@ -9,12 +9,11 @@ namespace semp
     {
     private:
         std::string contents;
-
     public:
-        Lexer(std::string file_path) : contents{load_file(file_path)}
+        Lexer(std::string source_code) 
+            : contents{std::move(source_code)} 
         {
         }
-        std::string load_file(std::string file_path);
         std::vector<Token> tokenize();
     };
 };
