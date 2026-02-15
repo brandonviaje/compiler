@@ -6,33 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Linter
-find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
-
-if(CLANG_TIDY_EXE)
-    message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
-    # run clang-tidy on every .cpp file it compiles
-    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}" 
-      "-checks=bugprone-*,cert-*,performance-*,portability-*,modernize-use-auto,modernize-use-nullptr"
-      "-warnings-as-errors=*"
-    )
-else()
-    message(WARNING "clang-tidy NOT found! Linting disabled.")
-endif()
-
-# Main
-add_executable(semp
-  src/main.cpp
-)
-
-add_library(semp_lib
-  src/lexer.cpp
-)
-
-target_link_libraries(semp
-  semp_lib
-)
-
 # GoogleTest
 include(FetchContent)
 FetchContent_Declare(
@@ -43,6 +16,34 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
+
+# Linter
+find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
+
+if(CLANG_TIDY_EXE)
+    message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}" 
+      "-checks=bugprone-*,cert-*,performance-*,portability-*,modernize-use-auto,modernize-use-nullptr"
+      "-warnings-as-errors=*"
+    )
+else()
+    message(WARNING "clang-tidy NOT found! Linting disabled.")
+endif()
+
+add_library(semp_lib
+  src/lexer.cpp
+)
+
+target_include_directories(semp_lib PUBLIC include)
+
+# Main
+add_executable(semp
+  src/main.cpp
+)
+
+target_link_libraries(semp
+  semp_lib
+)
 
 # Tests
 add_executable(
