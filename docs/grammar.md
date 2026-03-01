@@ -3,25 +3,23 @@
 
 This grammar is designed to be **LL(1)** compatible, meaning it is specifically structured for a **Recursive Descent Parser** by eliminating left-recursion.
 
-**Start Symbol**: Program
+**Start Symbol**: `Program`
 
-**Nonterminals**: Program, Stmt, StmtList, Block, Expr, E, E', T, T', F, Literal
+**Nonterminals**: `Program`, `Stmt`, `StmtList`, `Block`, `Expr`, `E,` `E'`, `T`, `T'`, `F`, `Literal`
 
 **Terminals**:
 
-$$
-\begin{aligned}
-\text{ret} &\rightarrow \_RETURN \\
-\{,\} &\rightarrow \_LEFT\_BRACE, \_RIGHT\_BRACE \\
-; &\rightarrow \_SEMICOLON \\
-(,) &\rightarrow \_LEFT\_PAREN, \_RIGHT\_PAREN \\
-+, * &\rightarrow \_PLUS, \_STAR \\
-\text{id} &\rightarrow \_IDENTIFIER \\
-\text{number} &\rightarrow \_INT\_LITERAL \\
-\text{string} &\rightarrow \_STR\_LITERAL \\
-\text{EOF} &\rightarrow \_EOF
-\end{aligned}
-$$
+| Token     | Maps to                      |
+|-----------|------------------------------|
+| ret       | _RETURN                      |
+| { , }     | _LEFT_BRACE, _RIGHT_BRACE    |
+| ;         | _SEMICOLON                   |
+| ( , )     | _LEFT_PAREN, _RIGHT_PAREN    |
+| + , *     | _PLUS, _STAR                 |
+| id        | _IDENTIFIER                  |
+| number    | _INT_LITERAL                 |
+| string    | _STR_LITERAL                 |
+| EOF       | _EOF                         |
 
 # Program Structure
 $$
